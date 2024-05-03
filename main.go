@@ -45,13 +45,13 @@ func main() {
 
 		newHight = uint(float32(maxWidth) / float32(bounds.Size().X) * float32(bounds.Size().Y))
 		newWidth = maxWidth
-		fmt.Printf("Новая размер изображения: %d %d \n", newWidth, newHight)
+		fmt.Printf("Новый размер изображения: %d %d \n", newWidth, newHight)
 
 		if newHight > maxHight {
 			fmt.Println("Высота изображения всё ещё больше максимальной")
 			newWidth = uint(float32(bounds.Size().X) * float32(maxWidth) / float32(bounds.Size().Y))
 			newHight = maxHight
-			fmt.Printf("Новая размер изображения: %d %d \n", newWidth, newHight)
+			fmt.Printf("Новый размер изображения: %d %d \n", newWidth, newHight)
 		}
 	}
 
