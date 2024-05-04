@@ -6,14 +6,37 @@ import (
 	"image"
 	"image/jpeg"
 	"os"
+	"path/filepath"
+	"regexp"
 
 	"github.com/nfnt/resize"
 )
+
+func getImgPathSlice(path string) (result []string) {
+	filepath.Walk(path, func(wPath string, info os.FileInfo, err error) error {
+
+		// Обход директории без вывода
+		if wPath == path {
+			return nil
+		}
+
+		isImg, _ := regexp.MatchString(`.jpg$`, wPath)
+
+		if wPath != path && isImg {
+			result = append(result, wPath)
+			// fmt.Println(wPath)
+		}
+		return nil
+	})
+	return
+}
 
 func main() {
 	var maxWidth uint = 1200
 	var maxHight uint = 900
 	var newWidth, newHight uint
+
+	fmt.Println(getImgPathSlice("."))
 
 	imgFile, err := os.Open("test.jpg")
 	if err != nil {
@@ -57,11 +80,9 @@ func main() {
 
 	newImg := resize.Resize(newWidth, newHight, img, resize.Lanczos3)
 
-	// Encode uses a Writer, use a Buffer if you need the raw []byte
 	err = jpeg.Encode(out, newImg, nil)
 	if err != nil {
 		fmt.Println(err.Error())
 		os.Exit(1)
 	}
-	// check err
 }
