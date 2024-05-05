@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	stl "img_resizer/STL"
 )
 
@@ -13,7 +12,6 @@ func main() {
 	imgPathes := stl.GetImgPathSlice(".")
 
 	for _, imgPath := range imgPathes {
-		fmt.Println(imgPath)
 		err := stl.ResizeImg(maxWidthBigImg, maxHightBigImg, imgPath, prefix_b)
 		if err != nil {
 			panic(err)
