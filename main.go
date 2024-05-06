@@ -32,7 +32,7 @@ func main() {
 			in.ReadString('\n')
 			panic(err)
 		}
-		fmt.Println(maxWidthBigImg, maxHightBigImg, imgPath, prefix_s)
+		fmt.Println(maxWidthSmallImg, maxHightSmallImg, imgPath, prefix_s)
 
 		err = stl.DeleteImg(imgPath)
 		if err != nil {
@@ -41,7 +41,7 @@ func main() {
 			in.ReadString('\n')
 			panic(err)
 		}
-		fmt.Println(imgPath, "Удалён.\n")
+		fmt.Printf("%s Удалён.\n\n", imgPath)
 
 	}
 	fmt.Print("Процесс завершится после нажатия 'Enter'.")
