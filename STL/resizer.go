@@ -38,6 +38,7 @@ func ResizeImg(maxWidth, maxHight uint, imgPath, prefix string) (err error) {
 	if err != nil {
 		return
 	}
+	defer imgFile.Close()
 
 	pathSlice := strings.Split(imgPath, string(os.PathSeparator))
 	newImgPath := strings.Replace(imgPath, pathSlice[len(pathSlice)-1], prefix+pathSlice[len(pathSlice)-1], 1)
@@ -57,7 +58,7 @@ func ResizeImg(maxWidth, maxHight uint, imgPath, prefix string) (err error) {
 
 	newImg := resize.Thumbnail(maxWidth, maxHight, img, resize.Lanczos3)
 
-	err = jpeg.Encode(out, newImg, nil)
+	err = jpeg.Encode(out, newImg, &jpeg.Options{Quality: 100})
 	if err != nil {
 		return
 	}
