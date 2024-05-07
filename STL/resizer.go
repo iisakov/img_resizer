@@ -21,7 +21,7 @@ func GetImgPathSlice(path string) (result []string) {
 
 		wPathSlice := strings.Split(wPath, string(os.PathSeparator))
 		isImg, _ := regexp.MatchString(`.jpg$`, wPathSlice[len(wPathSlice)-1])
-		isNotOriginal, _ := regexp.MatchString(`^(s_|b_)`, wPathSlice[len(wPathSlice)-1])
+		isNotOriginal, _ := regexp.MatchString(`^(`+Prefix_b+`|`+Prefix_s+`)`, wPathSlice[len(wPathSlice)-1])
 
 		if wPath != path && isImg && !isNotOriginal {
 			result = append(result, wPath)

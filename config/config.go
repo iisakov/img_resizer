@@ -1,3 +1,3 @@
 package config
 
-var version string = "2024.05.06:1.0.1"
+var Version string = "2024.05.07:1.0.2"

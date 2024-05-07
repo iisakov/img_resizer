@@ -8,42 +8,43 @@ import (
 )
 
 func main() {
-	var prefix_b, prefix_s string = "b_", "s_"
-	var maxWidthBigImg, maxHightBigImg uint = 1200, 900
-	var maxWidthSmallImg, maxHightSmallImg uint = 186, 140
+
 	in := bufio.NewReader(os.Stdin)
 
-	imgPathes := stl.GetImgPathSlice(".")
+	if len(os.Args) > 1 {
+		commands := os.Args[1:]
+		stl.Handle(commands)
+	}
 
-	for _, imgPath := range imgPathes {
-		err := stl.ResizeImg(maxWidthBigImg, maxHightBigImg, imgPath, prefix_b)
-		if err != nil {
-			fmt.Println(err.Error())
-			fmt.Print("Процесс завершится после нажатия 'Enter'.")
-			in.ReadString('\n')
-			panic(err)
-		}
-		fmt.Println(maxWidthBigImg, maxHightBigImg, imgPath, prefix_b)
+	var ImgPathes = stl.GetImgPathSlice(stl.PathRoot)
 
-		err = stl.ResizeImg(maxWidthSmallImg, maxHightSmallImg, imgPath, prefix_s)
+	for _, imgPath := range ImgPathes {
+		err := stl.ResizeImg(stl.MaxWidthBigImg, stl.MaxHightBigImg, imgPath, stl.Prefix_b)
 		if err != nil {
-			fmt.Println(err.Error())
-			fmt.Print("Процесс завершится после нажатия 'Enter'.")
+			stl.PrintError(err.Error())
 			in.ReadString('\n')
-			panic(err)
+			stl.Exit()
 		}
-		fmt.Println(maxWidthSmallImg, maxHightSmallImg, imgPath, prefix_s)
+		fmt.Println(stl.MaxWidthBigImg, stl.MaxHightBigImg, imgPath, stl.Prefix_b)
+
+		err = stl.ResizeImg(stl.MaxWidthSmallImg, stl.MaxHightSmallImg, imgPath, stl.Prefix_s)
+		if err != nil {
+			stl.PrintError(err.Error())
+			in.ReadString('\n')
+			stl.Exit()
+		}
+		fmt.Println(stl.MaxWidthSmallImg, stl.MaxHightSmallImg, imgPath, stl.Prefix_s)
 
 		err = stl.DeleteImg(imgPath)
 		if err != nil {
-			fmt.Println(err.Error())
-			fmt.Print("Процесс завершится после нажатия 'Enter'.")
+			stl.PrintError(err.Error())
 			in.ReadString('\n')
-			panic(err)
+			stl.Exit()
 		}
 		fmt.Printf("%s Удалён.\n\n", imgPath)
 
 	}
 	fmt.Print("Процесс завершится после нажатия 'Enter'.")
 	in.ReadString('\n')
+	stl.Exit()
 }
