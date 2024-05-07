@@ -2,6 +2,7 @@ package stl
 
 import (
 	"bufio"
+	"fmt"
 	"image"
 	"image/jpeg"
 	"os"
@@ -63,10 +64,15 @@ func ResizeImg(maxWidth, maxHight uint, imgPath, prefix string) (err error) {
 		return
 	}
 
+	fmt.Println(MaxWidthBigImg, MaxHightBigImg, imgPath, Prefix_b)
 	return
 }
 
 func DeleteImg(imgPath string) (err error) {
 	err = os.Remove(imgPath)
+	if err != nil {
+		return
+	}
+	fmt.Printf("%s Удалён.\n\n", imgPath)
 	return
 }

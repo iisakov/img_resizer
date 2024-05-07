@@ -6,6 +6,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 )
 
 var Prefix_b, Prefix_s string = "b_", "s_"
@@ -59,7 +60,7 @@ func setParam(comands []string) {
 			case "mwb":
 				cSS, err := strconv.Atoi(cS[1])
 				if err != nil {
-					PrintError(err.Error())
+					PrintError("Кажется вы ввели не число.")
 					Exit()
 				}
 				MaxWidthBigImg = uint(cSS)
@@ -69,7 +70,7 @@ func setParam(comands []string) {
 			case "mws":
 				cSS, err := strconv.Atoi(cS[1])
 				if err != nil {
-					PrintError(err.Error())
+					PrintError("Кажется вы ввели не число.")
 					Exit()
 				}
 				MaxHightBigImg = uint(cSS)
@@ -79,7 +80,7 @@ func setParam(comands []string) {
 			case "mhb":
 				cSS, err := strconv.Atoi(cS[1])
 				if err != nil {
-					PrintError(err.Error())
+					PrintError("Кажется вы ввели не число.")
 					Exit()
 				}
 				MaxWidthSmallImg = uint(cSS)
@@ -89,7 +90,7 @@ func setParam(comands []string) {
 			case "mhs":
 				cSS, err := strconv.Atoi(cS[1])
 				if err != nil {
-					PrintError(err.Error())
+					PrintError("Кажется вы ввели не число.")
 					Exit()
 				}
 				MaxHightSmallImg = uint(cSS)
@@ -110,7 +111,7 @@ func setParam(comands []string) {
 func PrintMessage(messages ...string) {
 	response := ""
 	for _, message := range messages {
-		response += message + "\n"
+		response += message + " "
 	}
 	fmt.Println(response)
 }
@@ -118,7 +119,7 @@ func PrintMessage(messages ...string) {
 func Exit(messages ...string) {
 	response := ""
 	for _, message := range messages {
-		response += message + "\n"
+		response += message + " "
 	}
 	response += "Спасибо, что воспользовались img_resizer от [by_artisan]"
 
@@ -129,10 +130,10 @@ func Exit(messages ...string) {
 func PrintError(messages ...string) {
 	response := "\n"
 	for _, message := range messages {
-		response += message + "\n"
+		response += message + " "
 	}
 	response += "Утилита закрыта."
 
 	fmt.Println(response)
-	fmt.Print("Процесс завершится после нажатия 'Enter'.")
+	time.Sleep(100 + time.Second)
 }
