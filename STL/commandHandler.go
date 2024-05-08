@@ -21,7 +21,7 @@ func Handle(comands []string) {
 		case "--help":
 			fallthrough
 		case "-h":
-			PrintMessage("Здесь будет руководство пользователя")
+			PrintMessage(config.HelpText)
 			Exit()
 
 		case "--version":
